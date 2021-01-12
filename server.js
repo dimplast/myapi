@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const  bootcamps  = require('./routes/bootcamps');
 const morgan = require('morgan');
 const colors = require('colors');
+const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
 dotenv.config({path:'./config/config.env'});
@@ -19,6 +20,8 @@ connectDB();
 app.use(express.json());
 
 app.use('/api/v1/bootcamps',bootcamps);
+
+app.use(errorHandler);
 
 const server = app.listen(PORT,
     console.log(`Server running in ${process.env.NODE_ENV} 

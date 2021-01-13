@@ -1,6 +1,5 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const  bootcamps  = require('./routes/bootcamps');
 const morgan = require('morgan');
 const colors = require('colors');
 const errorHandler = require('./middleware/error');
@@ -15,11 +14,15 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
 
+const bootcamps  = require('./routes/bootcamps');
+const courses = require('./routes/courses')
+
 connectDB();
 
 app.use(express.json());
 
 app.use('/api/v1/bootcamps',bootcamps);
+app.use('/api/v1/courses',courses);
 
 app.use(errorHandler);
 
